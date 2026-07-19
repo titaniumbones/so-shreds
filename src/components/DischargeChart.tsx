@@ -33,17 +33,25 @@ function niceTicks(lo: number, hi: number, n = 5): number[] {
 export function DischargeChart({
   river,
   readings,
+  forecast = [],
 }: {
   river: River
   readings: Reading[]
+  forecast?: Reading[]
 }) {
   const svgRef = useRef<SVGSVGElement>(null)
   const [hoverX, setHoverX] = useState<number | null>(null)
 
-  const { xOf, yOf, path, yTicks, xTicks, tMin, tMax, yMax } = useMemo(() => {
+  const { xOf, yOf, path, forecastPath, yTicks, xTicks, tMin, tMax, yMax } = useMemo(() => {
     const t0 = readings[0]?.t ?? 0
-    const t1 = readings[readings.length - 1]?.t ?? 1
-    const vMax = Math.max(...readings.map((r) => r.value))
+    const lastObs = readings[readings.length - 1]
+    const t1 = forecast.length
+      ? forecast[forecast.length - 1].t
+      : lastObs?.t ?? 1
+    const vMax = Math.max(
+      ...readings.map((r) => r.value),
+      ...forecast.map((r) => r.value),
+    )
     // headroom above the max reading; include the top of the good band when close
     const yTop = vMax * 1.15
     const xOf = (t: number) =>
@@ -51,6 +59,11 @@ export function DischargeChart({
     const yOf = (v: number) =>
       H - PAD.bottom - (v / yTop) * (H - PAD.top - PAD.bottom)
     const path = readings
+      .map((r, i) => `${i ? 'L' : 'M'}${xOf(r.t).toFixed(1)},${yOf(r.value).toFixed(1)}`)
+      .join('')
+    // dashed continuation: last observation -> forecast days
+    const fPts = lastObs ? [lastObs, ...forecast.filter((f) => f.t > lastObs.t)] : forecast
+    const forecastPath = fPts
       .map((r, i) => `${i ? 'L' : 'M'}${xOf(r.t).toFixed(1)},${yOf(r.value).toFixed(1)}`)
       .join('')
     const yTicks = niceTicks(0, yTop)
@@ -67,15 +80,20 @@ export function DischargeChart({
       xOf,
       yOf,
       path,
+      forecastPath,
       yTicks,
       xTicks: xTicks.filter((_, i) => i % stride === 0),
       tMin: t0,
       tMax: t1,
       yMax: yTop,
     }
-  }, [readings])
+  }, [readings, forecast])
 
-  const hovered = useMemoHover(readings, hoverX, tMin, tMax)
+  const hoverSet = useMemo(
+    () => (forecast.length ? [...readings, ...forecast] : readings),
+    [readings, forecast],
+  )
+  const hovered = useMemoHover(hoverSet, hoverX, tMin, tMax)
 
   if (readings.length === 0) return null
 
@@ -164,8 +182,43 @@ export function DischargeChart({
         strokeWidth="1"
       />
 
+      {/* "now" divider between observed and predicted */}
+      {forecast.length > 0 && readings.length > 0 && (
+        <g>
+          <line
+            x1={xOf(readings[readings.length - 1].t)}
+            x2={xOf(readings[readings.length - 1].t)}
+            y1={PAD.top}
+            y2={H - PAD.bottom}
+            stroke="var(--axis)"
+            strokeWidth="1"
+          />
+          <text
+            x={xOf(readings[readings.length - 1].t) + 6}
+            y={PAD.top + 12}
+            fontSize="11"
+            fill="var(--ink-3)"
+          >
+            forecast →
+          </text>
+        </g>
+      )}
+
       {/* the series */}
       <path d={path} fill="none" stroke="var(--river)" strokeWidth="2" strokeLinejoin="round" />
+
+      {/* predicted flow, dashed */}
+      {forecastPath && (
+        <path
+          d={forecastPath}
+          fill="none"
+          stroke="var(--river)"
+          strokeWidth="2"
+          strokeDasharray="6 5"
+          strokeLinejoin="round"
+          opacity="0.85"
+        />
+      )}
 
       {/* crosshair + tooltip */}
       {hovered && (

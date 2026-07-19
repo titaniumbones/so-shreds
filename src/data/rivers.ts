@@ -157,6 +157,7 @@ export const rivers: River[] = [
     ],
     gaugeNote:
       'Course flow is set by dam release upstream at Horseshoe Lake; the Norland gauge is well downstream and lags. Check MNR dam logs before driving.',
+    hasDescription: true,
   },
   {
     name: 'Lower Madawaska',
@@ -174,6 +175,7 @@ export const rivers: River[] = [
       { min: 110, max: 170, quality: 'shoulder' },
       { min: 170, max: 500, quality: 'high' },
     ],
+    hasDescription: true,
   },
   {
     name: 'Petawawa River',
@@ -191,6 +193,7 @@ export const rivers: River[] = [
       { min: 220, max: 320, quality: 'shoulder' },
       { min: 320, max: 900, quality: 'high' },
     ],
+    hasDescription: true,
   },
   {
     name: 'Ottawa River',
@@ -209,6 +212,7 @@ export const rivers: River[] = [
     ],
     gaugeNote:
       'Paddlers usually quote the Ottawa in feet on the Lorne gauge; Britannia discharge is a downstream proxy. The river runs year-round — bands here flag flood stages, not a minimum.',
+    hasDescription: true,
   },
 ]
 

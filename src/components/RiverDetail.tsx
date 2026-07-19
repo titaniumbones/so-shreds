@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { marked } from 'marked'
 import type { River } from '../types'
 import { useGaugeData } from '../hooks/useGaugeData'
+import { useForecast } from '../hooks/useForecast'
 import { qualityAt, qualityLabel, trendOf } from '../lib/quality'
 import { FlowStrip } from './FlowStrip'
 import { DischargeChart } from './DischargeChart'
@@ -19,6 +20,7 @@ export function RiverDetail({ river }: { river: River }) {
   const last = readings[readings.length - 1] ?? null
   const quality = last ? qualityAt(river.bands, last.value) : null
   const trend = trendOf(readings)
+  const { forecast } = useForecast(river, readings)
   const [description, setDescription] = useState<string | null>(null)
 
   useEffect(() => {
@@ -92,7 +94,20 @@ export function RiverDetail({ river }: { river: River }) {
             Couldn't reach the gauge feed ({error}). Try reloading.
           </p>
         ) : (
-          <DischargeChart river={river} readings={readings} />
+          <DischargeChart
+            river={river}
+            readings={readings}
+            forecast={forecast?.points ?? []}
+          />
+        )}
+        {forecast && (
+          <p className="station-line">
+            Dashed line: experimental 7-day flow prediction — a small
+            rainfall-runoff model driven by the Open-Meteo weather forecast for
+            the catchment, anchored to the latest reading. Validation skill
+            (NSE√, 2016+): {forecast.skill.toFixed(2)}. Trust it for "rising or
+            falling", not for exact numbers.
+          </p>
         )}
         <p className="station-line">
           Station {river.station} — {river.stationName}. Provisional data from{' '}
