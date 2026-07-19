@@ -1,0 +1,86 @@
+import type { GaugeSeries, Reading } from '../types'
+
+/*
+ * ECCC GeoMet OGC-API client.
+ * https://api.weather.gc.ca/collections/hydrometric-realtime holds ~30 days of
+ * provisional 5-minute-to-hourly readings for every active WSC station, with
+ * Access-Control-Allow-Origin: * — so a static site can call it directly.
+ */
+
+const BASE = 'https://api.weather.gc.ca/collections'
+
+interface GeoJsonFeature {
+  properties: {
+    DATETIME: string
+    LEVEL: number | null
+    DISCHARGE: number | null
+  }
+}
+
+interface FeatureCollection {
+  features: GeoJsonFeature[]
+  numberMatched?: number
+}
+
+async function fetchAllPages(url: string, cap = 5): Promise<GeoJsonFeature[]> {
+  const out: GeoJsonFeature[] = []
+  let offset = 0
+  const limit = 10000
+  for (let page = 0; page < cap; page++) {
+    const res = await fetch(`${url}&limit=${limit}&offset=${offset}`)
+    if (!res.ok) throw new Error(`GeoMet ${res.status} for ${url}`)
+    const json = (await res.json()) as FeatureCollection
+    out.push(...json.features)
+    if (json.features.length < limit) break
+    offset += limit
+  }
+  return out
+}
+
+/** Fetch recent readings for a station. `days` up to ~30. */
+export async function fetchRealtime(
+  station: string,
+  parameter: 'discharge' | 'level',
+  days: number,
+): Promise<GaugeSeries> {
+  const since = new Date(Date.now() - days * 86400_000)
+    .toISOString()
+    .slice(0, 19)
+  const url =
+    `${BASE}/hydrometric-realtime/items?f=json` +
+    `&STATION_NUMBER=${station}` +
+    `&datetime=${since}Z/..` +
+    `&sortby=DATETIME` +
+    `&properties=DATETIME,LEVEL,DISCHARGE`
+  const features = await fetchAllPages(url)
+  const key = parameter === 'discharge' ? 'DISCHARGE' : 'LEVEL'
+  const readings: Reading[] = features
+    .map((f) => ({
+      t: Date.parse(f.properties.DATETIME),
+      value: f.properties[key] as number | null,
+    }))
+    // 99999 / -99999 are WSC sentinels for a malfunctioning sensor
+    .filter(
+      (r): r is Reading =>
+        r.value != null && Math.abs(r.value) < 99990 && Number.isFinite(r.t),
+    )
+  return { station, parameter, readings, fetchedAt: Date.now() }
+}
+
+/** Historical daily means (for context / prediction work). */
+export async function fetchDailyMeans(
+  station: string,
+  fromISO: string,
+  toISO: string,
+): Promise<Reading[]> {
+  const url =
+    `${BASE}/hydrometric-daily-mean/items?f=json` +
+    `&STATION_NUMBER=${station}` +
+    `&datetime=${fromISO}/${toISO}` +
+    `&sortby=DATE` +
+    `&properties=DATE,DISCHARGE`
+  const features = await fetchAllPages(url)
+  return (features as unknown as { properties: { DATE: string; DISCHARGE: number | null } }[])
+    .map((f) => ({ t: Date.parse(f.properties.DATE), value: f.properties.DISCHARGE }))
+    .filter((r): r is Reading => r.value != null)
+}
