@@ -10,6 +10,9 @@ export interface ForecastPoint {
 
 export interface FlowForecast {
   points: ForecastPoint[]
+  /** modelled flow for the recent past — the virtual gauge when the
+   * physical one is offline */
+  history: ForecastPoint[]
   /** how well the calibrated model validated (NSE on sqrt flows, 2016+) */
   skill: number
   anchored: boolean
@@ -67,12 +70,17 @@ export async function forecastFlow(
   }
 
   const todayISO = new Date().toISOString().slice(0, 10)
-  const points = sim
-    .filter((s) => s.date >= todayISO)
-    .map((s) => ({
-      t: Date.parse(`${s.date}T12:00:00Z`),
-      value: s.q * ratio,
-    }))
+  const histStartISO = new Date(Date.now() - 30 * 86400_000)
+    .toISOString()
+    .slice(0, 10)
+  const toPoint = (s: { date: string; q: number }) => ({
+    t: Date.parse(`${s.date}T12:00:00Z`),
+    value: s.q * ratio,
+  })
+  const points = sim.filter((s) => s.date >= todayISO).map(toPoint)
+  const history = sim
+    .filter((s) => s.date >= histStartISO && s.date < todayISO)
+    .map(toPoint)
 
-  return { points, skill: entry.fit.val_sqrt_nse, anchored }
+  return { points, history, skill: entry.fit.val_sqrt_nse, anchored }
 }

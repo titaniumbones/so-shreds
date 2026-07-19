@@ -4,12 +4,18 @@ import { forecastFlow, type FlowForecast } from '../lib/forecast'
 
 const cache = new Map<string, FlowForecast | null>()
 
-/** Run the flow-prediction model once observations are available. */
-export function useForecast(river: River, observed: Reading[]): {
+/** Run the flow-prediction model. `enabled` gates the (network-heavy) run —
+ * pass true once the gauge fetch has settled. Works without observations:
+ * the model then acts as an unanchored virtual gauge. */
+export function useForecast(
+  river: River,
+  observed: Reading[],
+  enabled = true,
+): {
   forecast: FlowForecast | null
   loading: boolean
 } {
-  const ready = observed.length > 0
+  const ready = enabled
   const [state, setState] = useState<{ forecast: FlowForecast | null; loading: boolean }>(
     { forecast: cache.get(river.station) ?? null, loading: false },
   )

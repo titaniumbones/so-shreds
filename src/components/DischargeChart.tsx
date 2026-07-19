@@ -43,7 +43,7 @@ export function DischargeChart({
   const [hoverX, setHoverX] = useState<number | null>(null)
 
   const { xOf, yOf, path, forecastPath, yTicks, xTicks, tMin, tMax, yMax } = useMemo(() => {
-    const t0 = readings[0]?.t ?? 0
+    const t0 = readings[0]?.t ?? forecast[0]?.t ?? 0
     const lastObs = readings[readings.length - 1]
     const t1 = forecast.length
       ? forecast[forecast.length - 1].t
@@ -95,7 +95,7 @@ export function DischargeChart({
   )
   const hovered = useMemoHover(hoverSet, hoverX, tMin, tMax)
 
-  if (readings.length === 0) return null
+  if (readings.length === 0 && forecast.length === 0) return null
 
   function onMove(e: React.PointerEvent<SVGSVGElement>) {
     const rect = svgRef.current!.getBoundingClientRect()

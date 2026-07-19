@@ -1,5 +1,6 @@
 import type { River } from '../types'
 import { useGaugeData } from '../hooks/useGaugeData'
+import { useForecast } from '../hooks/useForecast'
 import { qualityAt, qualityLabel, trendOf } from '../lib/quality'
 import { FlowStrip } from './FlowStrip'
 
@@ -15,9 +16,14 @@ const trendArrow = { rising: '↗ rising', falling: '↘ falling', steady: '→ 
 export function RiverCard({ river }: { river: River }) {
   const { series, loading, error } = useGaugeData(river.station, river.parameter, 2)
   const readings = series?.readings ?? []
-  const last = readings[readings.length - 1] ?? null
+  const offline = !loading && !error && readings.length === 0
+  // virtual gauge: only run the model when the physical gauge is offline
+  const { forecast } = useForecast(river, readings, offline)
+  const virtual = offline ? forecast?.history ?? [] : []
+  const last =
+    readings[readings.length - 1] ?? virtual[virtual.length - 1] ?? null
   const quality = last ? qualityAt(river.bands, last.value) : null
-  const trend = trendOf(readings)
+  const trend = trendOf(readings.length ? readings : virtual)
 
   return (
     <li>
@@ -35,10 +41,14 @@ export function RiverCard({ river }: { river: River }) {
             {last ? (
               <>
                 <div className="value">
+                  {offline && '~'}
                   {last.value.toFixed(last.value < 10 ? 2 : last.value < 100 ? 1 : 0)}
                   <span className="units"> {river.units}</span>
                 </div>
-                {trend && <div className="trend">{trendArrow[trend]}</div>}
+                <div className="trend">
+                  {trend ? trendArrow[trend] : ''}
+                  {offline ? ' · modelled' : ''}
+                </div>
               </>
             ) : loading ? (
               <span className="card-loading">loading…</span>

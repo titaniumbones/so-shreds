@@ -23,10 +23,13 @@ export function RiverDetail({ river }: { river: River }) {
   const [days, setDays] = useState(7)
   const { series, loading, error } = useGaugeData(river.station, river.parameter, days)
   const readings = series?.readings ?? []
-  const last = readings[readings.length - 1] ?? null
+  const { forecast } = useForecast(river, readings, !loading)
+  const gaugeOffline = !loading && !error && readings.length === 0
+  const virtual = gaugeOffline ? forecast?.history ?? [] : []
+  const last =
+    readings[readings.length - 1] ?? virtual[virtual.length - 1] ?? null
   const quality = last ? qualityAt(river.bands, last.value) : null
-  const trend = trendOf(readings)
-  const { forecast } = useForecast(river, readings)
+  const trend = trendOf(readings.length ? readings : virtual)
   const [description, setDescription] = useState<string | null>(null)
   const [records, setRecords] = useState<RecordStats | null>(null)
 
@@ -77,6 +80,7 @@ export function RiverDetail({ river }: { river: River }) {
           {last && (
             <>
               <div className="value">
+                {gaugeOffline && '~'}
                 {last.value.toFixed(last.value < 10 ? 2 : last.value < 100 ? 1 : 0)}
                 <span className="units"> {river.units}</span>
               </div>
@@ -85,6 +89,7 @@ export function RiverDetail({ river }: { river: River }) {
                   <span className={`q-chip q-${quality}`}>{qualityLabel[quality]}</span>
                 )}{' '}
                 {trend && <span className="trend">{trend}</span>}
+                {gaugeOffline && <span className="trend"> · modelled</span>}
               </div>
             </>
           )}
@@ -117,10 +122,22 @@ export function RiverDetail({ river }: { river: River }) {
           <DischargeChart
             river={river}
             readings={readings}
-            forecast={forecast?.points ?? []}
+            forecast={
+              gaugeOffline
+                ? [...(forecast?.history ?? []), ...(forecast?.points ?? [])]
+                : forecast?.points ?? []
+            }
           />
         )}
-        {forecast && (
+        {gaugeOffline && forecast && (
+          <p className="card-error">
+            The physical gauge is offline, so everything shown is a{' '}
+            <strong>modelled estimate</strong> — our calibrated rainfall-runoff
+            model run on observed and forecast weather, with no gauge to anchor
+            it. Treat the numbers as rough.
+          </p>
+        )}
+        {forecast && !gaugeOffline && (
           <p className="station-line">
             Dashed line: experimental 7-day flow prediction — a small
             rainfall-runoff model driven by the Open-Meteo weather forecast for
