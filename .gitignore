@@ -26,3 +26,4 @@ dist-ssr
 # model training artifacts (reproducible via model/fetch_training_data.py)
 model/data/
 __pycache__/
+.claude/
