@@ -23,7 +23,9 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
+      # npm install rather than npm ci: the lockfile is generated on macOS and
+      # npm's platform-specific optional deps (@emnapi/*) break `ci` on linux
+      - run: npm install --no-audit --no-fund
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
