@@ -103,6 +103,32 @@ export const rivers: River[] = [
       'Old site read the CVC Belfountain gauge; this uses the nearby WSC Cataract station, so bands are approximate until recalibrated.',
   },
   {
+    name: 'Middle Credit',
+    section: 'Terra Cotta to Glen Williams to Norval',
+    slug: 'middlecredit',
+    station: '02HB018',
+    stationName: 'Credit River at Boston Mills',
+    parameter: 'discharge',
+    units: 'm³/s',
+    blurb: 'Class I–II · moving-water tour with the Glen Williams play spot',
+    // bands estimated from Boston Mills statistics (median annual max ≈ 30,
+    // median annual min ≈ 1.9 m³/s) — no published thresholds found
+    bands: [
+      { min: 0, max: 4, quality: 'low' },
+      { min: 4, max: 7, quality: 'shoulder' },
+      { min: 7, max: 30, quality: 'good' },
+      { min: 30, max: 45, quality: 'shoulder' },
+      { min: 45, max: 120, quality: 'high' },
+    ],
+    points: {
+      putin: [43.7204, -79.9478],
+      takeout: [43.6465, -79.8623],
+    },
+    hasDescription: true,
+    gaugeNote:
+      'Boston Mills gauge sits mid-run. Take out at Willow Park before the Norval Dam — portaging the dam crosses posted private land.',
+  },
+  {
     name: "Spencer Creek",
     section: 'Town section, Dundas',
     slug: 'spencertown',
@@ -128,14 +154,19 @@ export const rivers: River[] = [
     parameter: 'discharge',
     units: 'm³/s',
     blurb: 'Class II–III · spring classic east of Belleville',
+    // The guidebook quotes LEVEL: "low 7, high 8" metres on this gauge.
+    // Empirical rating from 2010–2026 daily pairs: 7.0 m ≈ 5 m³/s,
+    // 7.1 m ≈ 10, 8.0 m ≈ 100 — bands below are those numbers in discharge.
     bands: [
-      { min: 0, max: 15, quality: 'low' },
-      { min: 15, max: 25, quality: 'shoulder' },
-      { min: 25, max: 100, quality: 'good' },
+      { min: 0, max: 5, quality: 'low' },
+      { min: 5, max: 12, quality: 'shoulder' },
+      { min: 12, max: 100, quality: 'good' },
       { min: 100, max: 160, quality: 'shoulder' },
       { min: 160, max: 400, quality: 'high' },
     ],
     hasDescription: true,
+    gaugeNote:
+      'The route description quotes water level: 7.0 m is minimum, above 8.0 m the smaller rapids wash out. Those convert to roughly 5 and 100 m³/s on this gauge.',
   },
   {
     name: 'Gull River',

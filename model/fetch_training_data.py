@@ -26,6 +26,7 @@ STATIONS = {
     "02GA005": (43.75, -80.55),  # Irvine nr Salem
     "02HB029": (43.75, -79.95),  # Credit at Streetsville: basin NW
     "02HB001": (43.85, -80.05),  # Credit nr Cataract
+    "02HB018": (43.82, -80.02),  # Credit at Boston Mills (middle Credit)
     "02HB007": (43.30, -80.05),  # Spencer Creek at Dundas
     "02HL001": (44.55, -77.35),  # Moira nr Foxboro: basin N toward Madoc
     "02HF002": (44.90, -78.75),  # Gull at Norland: Haliburton highlands

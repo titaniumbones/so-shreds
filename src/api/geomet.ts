@@ -77,7 +77,7 @@ export async function fetchRecordStats(station: string): Promise<RecordStats> {
   const url =
     `${BASE}/hydrometric-annual-statistics/items?f=json` +
     `&STATION_NUMBER=${station}&limit=500` +
-    `&properties=DATA_TYPE_EN,MAX_VALUE,MIN_VALUE,YEAR`
+    `&properties=DATA_TYPE_EN,MAX_VALUE,MIN_VALUE,MAX_DATE,MIN_DATE`
   const res = await fetch(url)
   if (!res.ok) throw new Error(`GeoMet ${res.status}`)
   const json = (await res.json()) as {
@@ -86,7 +86,8 @@ export async function fetchRecordStats(station: string): Promise<RecordStats> {
         DATA_TYPE_EN: string
         MAX_VALUE: number | null
         MIN_VALUE: number | null
-        YEAR: number
+        MAX_DATE: string | null
+        MIN_DATE: string | null
       }
     }[]
   }
@@ -96,9 +97,9 @@ export async function fetchRecordStats(station: string): Promise<RecordStats> {
     const p = f.properties
     if (p.DATA_TYPE_EN !== 'Discharge') continue
     if (p.MAX_VALUE != null && (!max || p.MAX_VALUE > max.value))
-      max = { value: p.MAX_VALUE, year: p.YEAR }
+      max = { value: p.MAX_VALUE, year: +(p.MAX_DATE?.slice(0, 4) ?? 0) }
     if (p.MIN_VALUE != null && (!min || p.MIN_VALUE < min.value))
-      min = { value: p.MIN_VALUE, year: p.YEAR }
+      min = { value: p.MIN_VALUE, year: +(p.MIN_DATE?.slice(0, 4) ?? 0) }
   }
   return { max, min }
 }

@@ -1,0 +1,39 @@
+{
+ "02HB018": {
+  "+1d": {
+   "medAPE": 6.0,
+   "medAPE_persist": 5.9,
+   "band_acc": 87.5,
+   "band_acc_persist": 87.5,
+   "n": 3646
+  },
+  "+2d": {
+   "medAPE": 9.2,
+   "medAPE_persist": 10.4,
+   "band_acc": 84.6,
+   "band_acc_persist": 80.4,
+   "n": 3646
+  },
+  "+3d": {
+   "medAPE": 10.8,
+   "medAPE_persist": 13.3,
+   "band_acc": 83.5,
+   "band_acc_persist": 76.6,
+   "n": 3646
+  },
+  "+5d": {
+   "medAPE": 13.3,
+   "medAPE_persist": 16.7,
+   "band_acc": 81.7,
+   "band_acc_persist": 72.3,
+   "n": 3646
+  },
+  "+7d": {
+   "medAPE": 15.0,
+   "medAPE_persist": 20.0,
+   "band_acc": 79.2,
+   "band_acc_persist": 69.4,
+   "n": 3646
+  }
+ }
+}

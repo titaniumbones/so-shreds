@@ -23,6 +23,7 @@ AREAS = {  # DRAINAGE_AREA_GROSS km² from hydrometric-stations (API values)
     "02GA005": 196.1,
     "02HB029": 774.6,
     "02HB001": 209.2,
+    "02HB018": 415.5,
     "02HB007": 158.5,
     "02HL001": 2596.0,
     "02HF002": 1283.0,

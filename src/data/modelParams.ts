@@ -13,4 +13,230 @@ export interface ModelEntry {
          train_nse: number; n_train: number; n_val: number }
 }
 
-export const modelParams: Record<string, ModelEntry> = {}
+export const modelParams: Record<string, ModelEntry> = {
+  "02GA005": {
+    "area_km2": 196.1,
+    "centroid": [
+      43.75,
+      -80.55
+    ],
+    "params": {
+      "smax": 187.45644,
+      "beta": 5.24747,
+      "ddf": 8.0,
+      "tmelt": 1.68242,
+      "alpha": 0.95,
+      "kq": 0.32347,
+      "ks": 0.15881,
+      "kr": 0.00099
+    },
+    "fit": {
+      "train_sqrt_nse": 0.602,
+      "train_nse": 0.479,
+      "val_sqrt_nse": 0.573,
+      "val_nse": 0.503,
+      "n_train": 2639,
+      "n_val": 2895
+    }
+  },
+  "02HB001": {
+    "area_km2": 209.2,
+    "centroid": [
+      43.85,
+      -80.05
+    ],
+    "params": {
+      "smax": 407.66491,
+      "beta": 4.96102,
+      "ddf": 5.66939,
+      "tmelt": 2.26622,
+      "alpha": 0.51834,
+      "kq": 0.21076,
+      "ks": 0.00205,
+      "kr": 0.00047
+    },
+    "fit": {
+      "train_sqrt_nse": 0.67,
+      "train_nse": 0.637,
+      "val_sqrt_nse": 0.493,
+      "val_nse": 0.468,
+      "n_train": 8766,
+      "n_val": 3653
+    }
+  },
+  "02HB007": {
+    "area_km2": 158.5,
+    "centroid": [
+      43.3,
+      -80.05
+    ],
+    "params": {
+      "smax": 219.34312,
+      "beta": 4.40006,
+      "ddf": 5.49744,
+      "tmelt": 1.82045,
+      "alpha": 0.10705,
+      "kq": 0.12297,
+      "ks": 0.13141,
+      "kr": 0.00068
+    },
+    "fit": {
+      "train_sqrt_nse": 0.646,
+      "train_nse": 0.534,
+      "val_sqrt_nse": 0.746,
+      "val_nse": 0.673,
+      "n_train": 8766,
+      "n_val": 3653
+    }
+  },
+  "02HB018": {
+    "area_km2": 415.5,
+    "centroid": [
+      43.82,
+      -80.02
+    ],
+    "params": {
+      "smax": 446.43388,
+      "beta": 4.26184,
+      "ddf": 5.59732,
+      "tmelt": 1.71882,
+      "alpha": 0.9352,
+      "kq": 0.23654,
+      "ks": 0.07146,
+      "kr": 0.00178
+    },
+    "fit": {
+      "train_sqrt_nse": 0.623,
+      "train_nse": 0.589,
+      "val_sqrt_nse": 0.557,
+      "val_nse": 0.521,
+      "n_train": 8766,
+      "n_val": 3653
+    }
+  },
+  "02HB029": {
+    "area_km2": 774.6,
+    "centroid": [
+      43.75,
+      -79.95
+    ],
+    "params": {
+      "smax": 272.11344,
+      "beta": 3.39603,
+      "ddf": 5.81275,
+      "tmelt": 1.18369,
+      "alpha": 0.94844,
+      "kq": 0.27172,
+      "ks": 0.02021,
+      "kr": 0.00247
+    },
+    "fit": {
+      "train_sqrt_nse": 0.69,
+      "train_nse": 0.65,
+      "val_sqrt_nse": 0.656,
+      "val_nse": 0.63,
+      "n_train": 2832,
+      "n_val": 3653
+    }
+  },
+  "02HL001": {
+    "area_km2": 2596.0,
+    "centroid": [
+      44.55,
+      -77.35
+    ],
+    "params": {
+      "smax": 297.51307,
+      "beta": 7.94902,
+      "ddf": 2.9812,
+      "tmelt": 0.84573,
+      "alpha": 0.05,
+      "kq": 0.1,
+      "ks": 0.0651,
+      "kr": 0.00014
+    },
+    "fit": {
+      "train_sqrt_nse": 0.754,
+      "train_nse": 0.689,
+      "val_sqrt_nse": 0.852,
+      "val_nse": 0.745,
+      "n_train": 8766,
+      "n_val": 3653
+    }
+  },
+  "02KB001": {
+    "area_km2": 4127.0,
+    "centroid": [
+      45.8,
+      -78.3
+    ],
+    "params": {
+      "smax": 250.80695,
+      "beta": 4.74952,
+      "ddf": 3.39513,
+      "tmelt": 1.3112,
+      "alpha": 0.05,
+      "kq": 0.1,
+      "ks": 0.04682,
+      "kr": 0.0008
+    },
+    "fit": {
+      "train_sqrt_nse": 0.744,
+      "train_nse": 0.717,
+      "val_sqrt_nse": 0.764,
+      "val_nse": 0.767,
+      "n_train": 8766,
+      "n_val": 3653
+    }
+  },
+  "02KD004": {
+    "area_km2": 5804.0,
+    "centroid": [
+      45.35,
+      -77.85
+    ],
+    "params": {
+      "smax": 152.62293,
+      "beta": 7.40097,
+      "ddf": 2.52376,
+      "tmelt": -0.66038,
+      "alpha": 0.05,
+      "kq": 0.1,
+      "ks": 0.04161,
+      "kr": 0.00368
+    },
+    "fit": {
+      "train_sqrt_nse": 0.635,
+      "train_nse": 0.591,
+      "val_sqrt_nse": 0.706,
+      "val_nse": 0.71,
+      "n_train": 8743,
+      "n_val": 3653
+    }
+  },
+  "02KF005": {
+    "area_km2": 91260.0,
+    "centroid": [
+      46.2,
+      -77.8
+    ],
+    "params": {
+      "smax": 304.41212,
+      "beta": 7.03435,
+      "ddf": 1.89117,
+      "tmelt": -0.50703,
+      "alpha": 0.05,
+      "kq": 0.1,
+      "ks": 0.03821,
+      "kr": 0.00251
+    },
+    "fit": {
+      "train_sqrt_nse": 0.702,
+      "train_nse": 0.693,
+      "val_sqrt_nse": 0.571,
+      "val_nse": 0.638,
+      "n_train": 8726,
+      "n_val": 3288
+    }
+  }
+}

@@ -12,11 +12,19 @@ params = json.loads((HERE / "params.json").read_text())
 # only ship models with real validation skill; the UI also shows this number
 MIN_SKILL = 0.45
 
+# stations where the hindcast showed persistence beats the model — dam-
+# controlled flow that rainfall cannot predict (see hindcast_report.json)
+EXCLUDE = {
+    "02GA016": "Shand Dam release: persistence beats the model",
+    "02HF002": "Gull dam release: no rainfall signal",
+}
+
 entries = {}
 for st, rec in sorted(params.items()):
     skill = rec["fit"]["val_sqrt_nse"]
-    keep = skill >= MIN_SKILL
-    print(f"{st}: val sqrt-NSE {skill:+.3f} {'SHIP' if keep else 'skip'}")
+    keep = skill >= MIN_SKILL and st not in EXCLUDE
+    why = EXCLUDE.get(st, f"val sqrt-NSE {skill:+.3f}")
+    print(f"{st}: {why} {'SHIP' if keep else 'skip'}")
     if keep:
         entries[st] = {
             "area_km2": rec["area_km2"],
