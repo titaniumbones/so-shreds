@@ -82,5 +82,89 @@
    "n_train": 8766,
    "n_val": 3653
   }
+ },
+ "02HB029": {
+  "area_km2": 774.6,
+  "params": {
+   "smax": 272.11344,
+   "beta": 3.39603,
+   "ddf": 5.81275,
+   "tmelt": 1.18369,
+   "alpha": 0.94844,
+   "kq": 0.27172,
+   "ks": 0.02021,
+   "kr": 0.00247
+  },
+  "fit": {
+   "train_sqrt_nse": 0.69,
+   "train_nse": 0.65,
+   "val_sqrt_nse": 0.656,
+   "val_nse": 0.63,
+   "n_train": 2832,
+   "n_val": 3653
+  }
+ },
+ "02HF002": {
+  "area_km2": 1283.0,
+  "params": {
+   "smax": 188.22223,
+   "beta": 8.0,
+   "ddf": 1.46235,
+   "tmelt": -0.8,
+   "alpha": 0.43072,
+   "kq": 0.1,
+   "ks": 0.01088,
+   "kr": 0.00568
+  },
+  "fit": {
+   "train_sqrt_nse": 0.375,
+   "train_nse": 0.405,
+   "val_sqrt_nse": 0.36,
+   "val_nse": 0.439,
+   "n_train": 8753,
+   "n_val": 3282
+  }
+ },
+ "02HL001": {
+  "area_km2": 2596.0,
+  "params": {
+   "smax": 297.51307,
+   "beta": 7.94902,
+   "ddf": 2.9812,
+   "tmelt": 0.84573,
+   "alpha": 0.05,
+   "kq": 0.1,
+   "ks": 0.0651,
+   "kr": 0.00014
+  },
+  "fit": {
+   "train_sqrt_nse": 0.754,
+   "train_nse": 0.689,
+   "val_sqrt_nse": 0.852,
+   "val_nse": 0.745,
+   "n_train": 8766,
+   "n_val": 3653
+  }
+ },
+ "02KB001": {
+  "area_km2": 4127.0,
+  "params": {
+   "smax": 250.80695,
+   "beta": 4.74952,
+   "ddf": 3.39513,
+   "tmelt": 1.3112,
+   "alpha": 0.05,
+   "kq": 0.1,
+   "ks": 0.04682,
+   "kr": 0.0008
+  },
+  "fit": {
+   "train_sqrt_nse": 0.744,
+   "train_nse": 0.717,
+   "val_sqrt_nse": 0.764,
+   "val_nse": 0.767,
+   "n_train": 8766,
+   "n_val": 3653
+  }
  }
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { marked } from 'marked'
 import type { River } from '../types'
+import { fetchRecordStats, type RecordStats } from '../api/geomet'
 import { useGaugeData } from '../hooks/useGaugeData'
 import { useForecast } from '../hooks/useForecast'
 import { qualityAt, qualityLabel, trendOf } from '../lib/quality'
@@ -22,6 +23,20 @@ export function RiverDetail({ river }: { river: River }) {
   const trend = trendOf(readings)
   const { forecast } = useForecast(river, readings)
   const [description, setDescription] = useState<string | null>(null)
+  const [records, setRecords] = useState<RecordStats | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+    setRecords(null)
+    fetchRecordStats(river.station)
+      .then((r) => {
+        if (!cancelled) setRecords(r)
+      })
+      .catch(() => {})
+    return () => {
+      cancelled = true
+    }
+  }, [river.station])
 
   useEffect(() => {
     setDescription(null)
@@ -107,6 +122,16 @@ export function RiverDetail({ river }: { river: River }) {
             the catchment, anchored to the latest reading. Validation skill
             (NSE√, 2016+): {forecast.skill.toFixed(2)}. Trust it for "rising or
             falling", not for exact numbers.
+          </p>
+        )}
+        {records && (records.max || records.min) && (
+          <p className="station-line">
+            Station records:
+            {records.max &&
+              ` high ${records.max.value.toLocaleString()} ${river.units} (${records.max.year})`}
+            {records.max && records.min && ' · '}
+            {records.min &&
+              `low ${records.min.value} ${river.units} (${records.min.year})`}
           </p>
         )}
         <p className="station-line">

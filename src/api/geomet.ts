@@ -67,6 +67,42 @@ export async function fetchRealtime(
   return { station, parameter, readings, fetchedAt: Date.now() }
 }
 
+export interface RecordStats {
+  max: { value: number; year: number } | null
+  min: { value: number; year: number } | null
+}
+
+/** All-time record annual max/min discharge from the annual-statistics set. */
+export async function fetchRecordStats(station: string): Promise<RecordStats> {
+  const url =
+    `${BASE}/hydrometric-annual-statistics/items?f=json` +
+    `&STATION_NUMBER=${station}&limit=500` +
+    `&properties=DATA_TYPE_EN,MAX_VALUE,MIN_VALUE,YEAR`
+  const res = await fetch(url)
+  if (!res.ok) throw new Error(`GeoMet ${res.status}`)
+  const json = (await res.json()) as {
+    features: {
+      properties: {
+        DATA_TYPE_EN: string
+        MAX_VALUE: number | null
+        MIN_VALUE: number | null
+        YEAR: number
+      }
+    }[]
+  }
+  let max: RecordStats['max'] = null
+  let min: RecordStats['min'] = null
+  for (const f of json.features) {
+    const p = f.properties
+    if (p.DATA_TYPE_EN !== 'Discharge') continue
+    if (p.MAX_VALUE != null && (!max || p.MAX_VALUE > max.value))
+      max = { value: p.MAX_VALUE, year: p.YEAR }
+    if (p.MIN_VALUE != null && (!min || p.MIN_VALUE < min.value))
+      min = { value: p.MIN_VALUE, year: p.YEAR }
+  }
+  return { max, min }
+}
+
 /** Historical daily means (for context / prediction work). */
 export async function fetchDailyMeans(
   station: string,
