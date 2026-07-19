@@ -27,24 +27,37 @@ export function useGaugeData(
   }))
 
   useEffect(() => {
-    const hit = cache.get(key)
-    if (hit && Date.now() - hit.fetchedAt < 10 * 60_000) {
-      setState({ series: hit, loading: false, error: null })
-      return
-    }
     let cancelled = false
-    setState((s) => ({ ...s, loading: true, error: null }))
-    fetchRealtime(station, parameter, days)
-      .then((series) => {
-        cache.set(key, series)
-        if (!cancelled) setState({ series, loading: false, error: null })
-      })
-      .catch((err: Error) => {
-        if (!cancelled)
-          setState((s) => ({ ...s, loading: false, error: err.message }))
-      })
+
+    const refresh = (force = false) => {
+      const hit = cache.get(key)
+      if (!force && hit && Date.now() - hit.fetchedAt < 10 * 60_000) {
+        setState({ series: hit, loading: false, error: null })
+        return
+      }
+      setState((s) => ({ ...s, loading: true, error: null }))
+      fetchRealtime(station, parameter, days)
+        .then((series) => {
+          cache.set(key, series)
+          if (!cancelled) setState({ series, loading: false, error: null })
+        })
+        .catch((err: Error) => {
+          if (!cancelled)
+            setState((s) => ({ ...s, loading: false, error: err.message }))
+        })
+    }
+
+    refresh()
+    // gauges report ~hourly; refresh on a timer and when the tab regains focus
+    const timer = setInterval(() => refresh(true), 20 * 60_000)
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') refresh()
+    }
+    document.addEventListener('visibilitychange', onVisible)
     return () => {
       cancelled = true
+      clearInterval(timer)
+      document.removeEventListener('visibilitychange', onVisible)
     }
   }, [key, station, parameter, days])
 

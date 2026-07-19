@@ -33,7 +33,8 @@ export const rivers: River[] = [
       takeout: [43.662701, -80.453265],
     },
     hasDescription: true,
-    gaugeNote: 'Dam-controlled; flow steps when GRCA changes the release.',
+    gaugeNote:
+      'Dam-controlled; flow steps when GRCA changes the release. Actual gorge flow ≈ Shand release plus the Irvine at Salem — add the two gauges when the Irvine is running.',
   },
   {
     name: 'Irvine River',
@@ -66,12 +67,14 @@ export const rivers: River[] = [
     parameter: 'discharge',
     units: 'm³/s',
     blurb: 'Class II · urban play run, best after rain',
+    // old site: min 4.6, good 8–50; WCA/riverapp: ideal 30–60, 80–120 is
+    // big-water Class III–IV — merged below
     bands: [
       { min: 0, max: 4.6, quality: 'low' },
       { min: 4.6, max: 8, quality: 'shoulder' },
-      { min: 8, max: 50, quality: 'good' },
-      { min: 50, max: 100, quality: 'shoulder' },
-      { min: 100, max: 300, quality: 'high' },
+      { min: 8, max: 60, quality: 'good' },
+      { min: 60, max: 120, quality: 'shoulder' },
+      { min: 120, max: 300, quality: 'high' },
     ],
     hasDescription: true,
   },
@@ -154,19 +157,19 @@ export const rivers: River[] = [
     parameter: 'discharge',
     units: 'm³/s',
     blurb: 'Class II–III · spring classic east of Belleville',
-    // The guidebook quotes LEVEL: "low 7, high 8" metres on this gauge.
-    // Empirical rating from 2010–2026 daily pairs: 7.0 m ≈ 5 m³/s,
-    // 7.1 m ≈ 10, 8.0 m ≈ 100 — bands below are those numbers in discharge.
+    // Paddlers quote LEVEL on this gauge. WCA: <7.5 m bump-and-grind,
+    // 7.8 m doable, 8.0–8.5 m ideal, >8.5 m hazardous. Empirical rating
+    // (2010–2026 daily pairs): 7.5 m ≈ 38, 7.8 m ≈ 75, 8.0 m ≈ 98 m³/s.
     bands: [
-      { min: 0, max: 5, quality: 'low' },
-      { min: 5, max: 12, quality: 'shoulder' },
-      { min: 12, max: 100, quality: 'good' },
-      { min: 100, max: 160, quality: 'shoulder' },
-      { min: 160, max: 400, quality: 'high' },
+      { min: 0, max: 38, quality: 'low' },
+      { min: 38, max: 75, quality: 'shoulder' },
+      { min: 75, max: 155, quality: 'good' },
+      { min: 155, max: 210, quality: 'shoulder' },
+      { min: 210, max: 500, quality: 'high' },
     ],
     hasDescription: true,
     gaugeNote:
-      'The route description quotes water level: 7.0 m is minimum, above 8.0 m the smaller rapids wash out. Those convert to roughly 5 and 100 m³/s on this gauge.',
+      'Paddlers quote water level here: below 7.5 m is bump-and-grind, 7.8 m doable, 8.0–8.5 m ideal, above 8.5 m the shoreline trees get dangerous. Bands convert those to discharge via the station rating.',
   },
   {
     name: 'Gull River',
@@ -187,7 +190,7 @@ export const rivers: River[] = [
       { min: 60, max: 120, quality: 'high' },
     ],
     gaugeNote:
-      'Course flow is set by dam release upstream at Horseshoe Lake; the Norland gauge is well downstream and lags. Check MNR dam logs before driving.',
+      'Course flow is set by dam release, and paddlers read the stick gauge by the parking lot: under 10 m³/s is too low, 10–18 is the usual summer release, 22–28 is race flow. The Norland gauge shown here is well downstream with no published correlation — treat it as a rough indicator and check Whitewater Ontario release schedules before driving.',
     hasDescription: true,
   },
   {
@@ -199,12 +202,13 @@ export const rivers: River[] = [
     parameter: 'discharge',
     units: 'm³/s',
     blurb: 'Class II–III · pool-drop granite, the club-trip classic',
+    // WCA / Split Rock: min ~15, ideal 30–60 (fine to ~100), washout ~225
     bands: [
       { min: 0, max: 15, quality: 'low' },
-      { min: 15, max: 25, quality: 'shoulder' },
-      { min: 25, max: 110, quality: 'good' },
-      { min: 110, max: 170, quality: 'shoulder' },
-      { min: 170, max: 500, quality: 'high' },
+      { min: 15, max: 30, quality: 'shoulder' },
+      { min: 30, max: 100, quality: 'good' },
+      { min: 100, max: 225, quality: 'shoulder' },
+      { min: 225, max: 500, quality: 'high' },
     ],
     hasDescription: true,
   },
@@ -225,6 +229,8 @@ export const rivers: River[] = [
       { min: 320, max: 900, quality: 'high' },
     ],
     hasDescription: true,
+    gaugeNote:
+      'Locals quote the town run in feet on this gauge (normal 2.8–4.0 ft, ~3.2 ft is a good medium); the upper river runs about two days ahead of the town reading.',
   },
   {
     name: 'Ottawa River',
