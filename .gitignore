@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# model training artifacts (reproducible via model/fetch_training_data.py)
+model/data/
+__pycache__/
