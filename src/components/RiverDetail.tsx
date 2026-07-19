@@ -8,6 +8,11 @@ import { qualityAt, qualityLabel, trendOf } from '../lib/quality'
 import { FlowStrip } from './FlowStrip'
 import { DischargeChart } from './DischargeChart'
 
+const fmtFlow = (v: number) =>
+  v >= 100
+    ? Math.round(v).toLocaleString()
+    : v.toFixed(v < 10 ? 2 : 1)
+
 const RANGES = [
   { days: 2, label: '2 days' },
   { days: 7, label: '7 days' },
@@ -128,10 +133,10 @@ export function RiverDetail({ river }: { river: River }) {
           <p className="station-line">
             Station records:
             {records.max &&
-              ` high ${records.max.value.toLocaleString()} ${river.units} (${records.max.year})`}
+              ` high ${fmtFlow(records.max.value)} ${river.units} (${records.max.year})`}
             {records.max && records.min && ' · '}
             {records.min &&
-              `low ${records.min.value} ${river.units} (${records.min.year})`}
+              `low ${fmtFlow(records.min.value)} ${river.units} (${records.min.year})`}
           </p>
         )}
         <p className="station-line">
