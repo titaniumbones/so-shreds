@@ -14,6 +14,8 @@ This is a ground-up rewrite of the old [river-levels](https://github.com/titaniu
 
 - **Runnability bands:** each river carries a set of flow ranges (`low / shoulder / good / high`, in m³/s) drawn as a colored strip with a needle at the current reading, and as washes behind the discharge chart. Thresholds come from the old site's data plus paddler folklore — they are advisory, not safety information.
 
+- **Flow prediction (experimental):** river pages show a dashed 7-day forecast — a small per-basin rainfall-runoff model (snow + soil store + two linear reservoirs) calibrated offline against decades of daily flows and ERA5 weather, then re-run in the browser against the live Open-Meteo forecast and anchored to the latest gauge reading. On natural-flow rivers it clearly beats "tomorrow = today" at 3–7 day leads; on dam-controlled rivers it can't know what the operator will do, so Shand and Gull don't get forecasts. Full methodology and validation numbers in [`model/README.md`](model/README.md).
+
 ## Development
 
 ```sh
