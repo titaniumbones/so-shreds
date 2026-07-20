@@ -247,6 +247,28 @@ export const rivers: River[] = [
     hasDescription: true,
   },
   {
+    name: 'Middle Madawaska',
+    section: 'Below Bark Lake Dam (MKC section)',
+    slug: 'middlemad',
+    station: '02KD004',
+    stationName: 'Madawaska River at Palmer Rapids',
+    parameter: 'discharge',
+    units: 'm³/s',
+    blurb: 'Class II–III · dam-release play run at Madawaska Kanu Centre',
+    // release-fed: runs most of the summer; bands provisional, on the
+    // downstream Palmer Rapids gauge
+    bands: [
+      { min: 0, max: 15, quality: 'low' },
+      { min: 15, max: 22, quality: 'shoulder' },
+      { min: 22, max: 70, quality: 'good' },
+      { min: 70, max: 140, quality: 'shoulder' },
+      { min: 140, max: 500, quality: 'high' },
+    ],
+    hasDescription: true,
+    gaugeNote:
+      'No public numeric gauge exists on this section — the WSC station at Palmer Rapids (well downstream) tracks the Bark Lake release with a lag. For a reading taken on the section itself, see the Shaggy Designs sensor at shaggydesigns.com/gauge/madawaska.htm.',
+  },
+  {
     name: 'Lower Madawaska',
     section: 'Palmer Rapids to Griffith',
     slug: 'madawaska',
