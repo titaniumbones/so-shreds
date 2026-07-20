@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "ios:build": "tsc -b && CAP_BUILD=1 vite build && cap sync ios",
+    "ios:open": "cap open ios",
     "lint": "oxlint",
     "preview": "vite preview"
   },
@@ -16,6 +18,10 @@
     "react-dom": "^19.2.7"
   },
   "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^8.4.2",
+    "@capacitor/core": "^8.4.2",
+    "@capacitor/ios": "^8.4.2",
     "@types/node": "^24.13.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",

@@ -80,7 +80,8 @@ body {
 #root {
   max-width: 1060px;
   margin: 0 auto;
-  padding: 0 20px 80px;
+  padding: env(safe-area-inset-top) calc(20px + env(safe-area-inset-right))
+    calc(80px + env(safe-area-inset-bottom)) calc(20px + env(safe-area-inset-left));
 }
 
 a {

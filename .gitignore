@@ -27,3 +27,6 @@ dist-ssr
 model/data/
 __pycache__/
 .claude/
+
+# capacitor-assets source images (regenerable: node scripts/make-app-assets.mjs)
+assets/

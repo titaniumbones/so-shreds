@@ -30,6 +30,23 @@ npm run build    # static build in dist/
 
 Deploys automatically to GitHub Pages via Actions on every push to `main`.
 
+## iOS app
+
+The same codebase builds as a native iOS app via [Capacitor](https://capacitorjs.com/): the `ios/` directory is a committed Xcode project (Swift Package Manager, no CocoaPods) that ships the Vite build inside a native shell. Every web feature flows into the app on the next rebuild — there is no separate mobile codebase.
+
+```sh
+npm run ios:build   # web build with relative base + cap sync into ios/
+npm run ios:open    # open the Xcode project
+```
+
+The GitHub Pages build is untouched: `vite.config.ts` only switches to relative asset paths when `CAP_BUILD` is set. To install on a phone, open the project in Xcode, pick your signing team under App → Signing & Capabilities, and Run on the connected device (a free Apple ID re-signs weekly; a paid developer account lasts a year).
+
+App icon and splash screens are generated from `public/favicon.svg` — if it changes, re-run:
+
+```sh
+node scripts/make-app-assets.mjs && npx capacitor-assets generate --ios
+```
+
 ## Adding a river
 
 Add an entry to `src/data/rivers.ts` (station number, bands, put-in/take-out coordinates) and optionally a markdown description at `public/descriptions/<slug>.md`. Find station numbers at [wateroffice.ec.gc.ca](https://wateroffice.ec.gc.ca/) or by querying `https://api.weather.gc.ca/collections/hydrometric-stations/items?PROV_TERR_STATE_LOC=ON`.
