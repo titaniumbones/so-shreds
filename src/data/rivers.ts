@@ -228,23 +228,25 @@ export const rivers: River[] = [
   },
   {
     name: 'Magnetawan River',
-    section: 'Lower Mag, near Britt',
+    section: 'Poverty Chutes · Ahmic Harbour to Maple Island',
     slug: 'magnetawan',
     station: '02EA011',
     stationName: 'Magnetawan River near Britt',
     parameter: 'discharge',
     units: 'm³/s',
-    blurb: 'Class II–III · granite pool-drop on the Shield, spring classic',
-    // bands estimated from Britt statistics (median annual max ≈ 198,
-    // median annual min ≈ 4 m³/s) pending better paddler thresholds
+    blurb: 'Class III–V · Shield pool-drop with the Poverty Chutes',
+    // Kawartha Whitewater Paddlers: runnable ~7 to 100+, ideal 40–60,
+    // Feighan Falls put-in only above 60 m³/s
     bands: [
-      { min: 0, max: 10, quality: 'low' },
-      { min: 10, max: 20, quality: 'shoulder' },
-      { min: 20, max: 150, quality: 'good' },
-      { min: 150, max: 250, quality: 'shoulder' },
-      { min: 250, max: 600, quality: 'high' },
+      { min: 0, max: 7, quality: 'low' },
+      { min: 7, max: 25, quality: 'shoulder' },
+      { min: 25, max: 100, quality: 'good' },
+      { min: 100, max: 200, quality: 'shoulder' },
+      { min: 200, max: 600, quality: 'high' },
     ],
     hasDescription: true,
+    gaugeNote:
+      'The Britt station sits at the river mouth, well below the run — the club reads it as a whole-river index, not an on-site gauge. Ideal is roughly 40–60 m³/s; the Feighan Falls put-in only works above ~60.',
   },
   {
     name: 'Middle Madawaska',
@@ -266,7 +268,7 @@ export const rivers: River[] = [
     ],
     hasDescription: true,
     gaugeNote:
-      'No public numeric gauge exists on this section — the WSC station at Palmer Rapids (well downstream) tracks the Bark Lake release with a lag. For a reading taken on the section itself, see the Shaggy Designs sensor at shaggydesigns.com/gauge/madawaska.htm.',
+      'No public numeric gauge exists on this section — the Palmer Rapids station shown here is well downstream (below Kamaniskeg) and only loosely tracks the release. Conventions on the section itself: the scheduled summer release is ~26 m³/s (Mon–Thu, ~9:00–15:30), ~40 is a good fun level, weekend baseflow runs 5–8. Check the Shaggy Designs sensor (shaggydesigns.com/gauge/madawaska.htm), MKC, or @MADRiverLevel before driving.',
   },
   {
     name: 'Lower Madawaska',
@@ -296,16 +298,34 @@ export const rivers: River[] = [
     parameter: 'discharge',
     units: 'm³/s',
     blurb: 'Class II–IV · big spring water off the Algonquin dome',
+    // liquidlore: town run quoted as gauge height METRES on this station —
+    // normal 2.8–4.0 m, ~3.2 m is a good medium, Catwalk surfs above 2.9 m.
+    // Converted via the 2010–2026 rating: 2.8 m ≈ 59, 3.2 m ≈ 119 m³/s.
     bands: [
-      { min: 0, max: 30, quality: 'low' },
-      { min: 30, max: 50, quality: 'shoulder' },
-      { min: 50, max: 220, quality: 'good' },
-      { min: 220, max: 320, quality: 'shoulder' },
-      { min: 320, max: 900, quality: 'high' },
+      { min: 0, max: 35, quality: 'low' },
+      { min: 35, max: 60, quality: 'shoulder' },
+      { min: 60, max: 250, quality: 'good' },
+      { min: 250, max: 400, quality: 'shoulder' },
+      { min: 400, max: 900, quality: 'high' },
     ],
     hasDescription: true,
     gaugeNote:
-      'Locals quote the town run in feet on this gauge (normal 2.8–4.0 ft, ~3.2 ft is a good medium); the upper river runs about two days ahead of the town reading.',
+      'The town run is quoted as gauge height in metres on this station: normal 2.8–4.0 m, ~3.2 m is a good medium, the Catwalk wave surfs above 2.9 m. (The painted feet gauge on the Hwy 17 bridge is a different, unrelated scale.) The upper river runs about two days ahead of the town reading.',
+    // empirical level↔discharge rating, 2010–2026 daily pairs
+    conventionScale: {
+      label: 'gauge height',
+      unit: 'm',
+      anchors: [
+        [28, 2.5],
+        [37, 2.6],
+        [59, 2.8],
+        [87, 3.0],
+        [119, 3.2],
+        [176, 3.5],
+        [287, 4.0],
+        [435, 4.5],
+      ],
+    },
   },
   {
     name: 'Ottawa River',
@@ -323,7 +343,7 @@ export const rivers: River[] = [
       { min: 4500, max: 10000, quality: 'high' },
     ],
     gaugeNote:
-      'Paddlers usually quote the Ottawa in feet on the Lorne gauge; Britannia discharge is a downstream proxy. The river runs year-round — bands here flag flood stages, not a minimum.',
+      "Paddlers quote the Ottawa in feet on the OWL stick gauge below McCoys (roughly −2 ft at summer low to 20+ ft in flood; see shaggydesigns.com/gauge/ottawa.htm for a live reading). No published conversion links that scale to flow, and this Britannia station is far downstream — treat it as a broad indicator. The river runs year-round; bands here flag flood stages, not a minimum.",
     hasDescription: true,
   },
 ]

@@ -6,7 +6,7 @@ Being undammed, the Pet rises and falls with snowmelt and rain: huge in late Apr
 
 ## Levels
 
-On the gauge near Petawawa: below ~30 m³/s is scraping; 50–220 m³/s covers most recreational trips; spring peaks above ~320 m³/s are serious, cold, big water for experienced crews only.
+Locals quote the town run as **gauge height in metres** on the WSC station: normal season is **2.8–4.0 m**, about **3.2 m is a good medium**, and the Catwalk wave comes in above **2.9 m**. (The painted feet gauge on the Hwy 17 bridge is an unrelated older scale.) In discharge terms 2.8 m ≈ 60 m³/s and 3.2 m ≈ 120 m³/s; spring peaks past 400 m³/s are serious, cold, big water for experienced crews only. The upper river in Algonquin runs roughly two days ahead of the town reading after rain.
 
 ## Hazards
 
