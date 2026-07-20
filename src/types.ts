@@ -7,6 +7,18 @@ export interface LevelBand {
   quality: Quality
 }
 
+/**
+ * The scale paddlers actually quote for a river (OWL feet on the Ottawa,
+ * gauge-height metres on the Moira…), expressed as piecewise-linear anchors
+ * from the station's parameter to the conventional number.
+ */
+export interface ConventionScale {
+  label: string
+  unit: string
+  /** [station value, convention value] pairs, ascending by station value */
+  anchors: [number, number][]
+}
+
 export interface River {
   name: string
   /** short region / section label shown under the name */
@@ -31,6 +43,8 @@ export interface River {
   hasDescription?: boolean
   /** notes about the gauge (e.g. proxy gauges, dam control) */
   gaugeNote?: string
+  /** the scale paddlers quote, derived from the station value */
+  conventionScale?: ConventionScale
 }
 
 export interface Reading {

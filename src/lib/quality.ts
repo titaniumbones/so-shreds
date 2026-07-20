@@ -30,6 +30,26 @@ export function stripDomain(river: River): [number, number] {
   return [bands[0].min, bands[bands.length - 1].max]
 }
 
+/** piecewise-linear interpolation along a convention scale's anchors */
+export function toConvention(
+  scale: { anchors: [number, number][] },
+  value: number,
+): number {
+  const a = scale.anchors
+  if (value <= a[0][0]) return a[0][1]
+  for (let i = 1; i < a.length; i++) {
+    if (value <= a[i][0]) {
+      const [x0, y0] = a[i - 1]
+      const [x1, y1] = a[i]
+      return y0 + ((value - x0) / (x1 - x0)) * (y1 - y0)
+    }
+  }
+  // extrapolate from the last segment
+  const [x0, y0] = a[a.length - 2]
+  const [x1, y1] = a[a.length - 1]
+  return y0 + ((value - x0) / (x1 - x0)) * (y1 - y0)
+}
+
 export function trendOf(
   readings: { t: number; value: number }[],
   hours = 6,

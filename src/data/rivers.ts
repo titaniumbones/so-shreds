@@ -190,6 +190,19 @@ export const rivers: River[] = [
     hasDescription: true,
     gaugeNote:
       'Paddlers quote water level here: below 7.5 m is bump-and-grind, 7.8 m doable, 8.0–8.5 m ideal, above 8.5 m the shoreline trees get dangerous. Bands convert those to discharge via the station rating.',
+    // empirical level↔discharge rating, 2010–2026 daily pairs
+    conventionScale: {
+      label: 'gauge height',
+      unit: 'm',
+      anchors: [
+        [5, 7.0],
+        [9.5, 7.1],
+        [14.6, 7.2],
+        [38.3, 7.5],
+        [98.4, 8.0],
+        [122, 8.15],
+      ],
+    },
   },
   {
     name: 'Gull River',

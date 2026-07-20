@@ -1,7 +1,7 @@
 import type { River } from '../types'
 import { useGaugeData } from '../hooks/useGaugeData'
 import { useForecast } from '../hooks/useForecast'
-import { qualityAt, qualityLabel, trendOf } from '../lib/quality'
+import { qualityAt, qualityLabel, toConvention, trendOf } from '../lib/quality'
 import { FlowStrip } from './FlowStrip'
 
 const qualityIcon: Record<string, string> = {
@@ -49,6 +49,12 @@ export function RiverCard({ river }: { river: River }) {
                   {trend ? trendArrow[trend] : ''}
                   {offline ? ' · modelled' : ''}
                 </div>
+                {river.conventionScale && (
+                  <div className="trend">
+                    ≈ {toConvention(river.conventionScale, last.value).toFixed(1)}{' '}
+                    {river.conventionScale.unit} {river.conventionScale.label}
+                  </div>
+                )}
               </>
             ) : loading ? (
               <span className="card-loading">loading…</span>

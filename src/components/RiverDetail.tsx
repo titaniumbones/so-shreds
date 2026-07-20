@@ -4,7 +4,7 @@ import type { River } from '../types'
 import { fetchRecordStats, type RecordStats } from '../api/geomet'
 import { useGaugeData } from '../hooks/useGaugeData'
 import { useForecast } from '../hooks/useForecast'
-import { qualityAt, qualityLabel, trendOf } from '../lib/quality'
+import { qualityAt, qualityLabel, toConvention, trendOf } from '../lib/quality'
 import { FlowStrip } from './FlowStrip'
 import { DischargeChart } from './DischargeChart'
 import { JournalSection } from './JournalSection'
@@ -85,6 +85,12 @@ export function RiverDetail({ river }: { river: River }) {
                 {last.value.toFixed(last.value < 10 ? 2 : last.value < 100 ? 1 : 0)}
                 <span className="units"> {river.units}</span>
               </div>
+              {river.conventionScale && (
+                <div className="trend">
+                  ≈ {toConvention(river.conventionScale, last.value).toFixed(1)}{' '}
+                  {river.conventionScale.unit} {river.conventionScale.label}
+                </div>
+              )}
               <div>
                 {quality && (
                   <span className={`q-chip q-${quality}`}>{qualityLabel[quality]}</span>
