@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { rivers, riverBySlug } from './data/rivers'
 import { RiverCard } from './components/RiverCard'
 import { RiverDetail } from './components/RiverDetail'
+import { SharedEntry } from './components/SharedEntry'
 
 function useHashRoute(): string {
   const [hash, setHash] = useState(() => window.location.hash)
@@ -15,7 +16,8 @@ function useHashRoute(): string {
 
 export default function App() {
   const route = useHashRoute()
-  const river = route ? riverBySlug(route) : undefined
+  const sharedBlob = route.startsWith('shared/') ? route.slice(7) : null
+  const river = route && !sharedBlob ? riverBySlug(route) : undefined
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -34,7 +36,9 @@ export default function App() {
         </p>
       </header>
 
-      {river ? (
+      {sharedBlob ? (
+        <SharedEntry blob={sharedBlob} />
+      ) : river ? (
         <RiverDetail river={river} />
       ) : (
         <main>

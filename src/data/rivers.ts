@@ -149,6 +149,26 @@ export const rivers: River[] = [
     hasDescription: true,
   },
   {
+    name: 'Nottawasaga River',
+    section: 'Hockley Valley',
+    slug: 'nottawasaga',
+    station: '02ED026',
+    stationName: 'Nottawasaga River at Hockley',
+    parameter: 'discharge',
+    units: 'm³/s',
+    blurb: 'Class I–II+ · spring swifts through the Hockley hills',
+    // bands estimated from Hockley statistics (median annual max ≈ 18,
+    // median annual min ≈ 0.6 m³/s) — no published thresholds found
+    bands: [
+      { min: 0, max: 3, quality: 'low' },
+      { min: 3, max: 5, quality: 'shoulder' },
+      { min: 5, max: 18, quality: 'good' },
+      { min: 18, max: 28, quality: 'shoulder' },
+      { min: 28, max: 80, quality: 'high' },
+    ],
+    hasDescription: true,
+  },
+  {
     name: 'Moira River',
     section: 'Latta / Foxboro',
     slug: 'moira',

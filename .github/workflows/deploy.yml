@@ -4,6 +4,13 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # re-deploy when run reports are posted so reports.json stays fresh
+  discussion:
+    types: [created, edited]
+  discussion_comment:
+    types: [created, edited, deleted]
+  schedule:
+    - cron: '17 9 * * *'
 
 permissions:
   contents: read
@@ -27,6 +34,9 @@ jobs:
       # npm's platform-specific optional deps (@emnapi/*) break `ci` on linux
       - run: npm install --no-audit --no-fund
       - run: npm run build
+      - run: node scripts/fetch-reports.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

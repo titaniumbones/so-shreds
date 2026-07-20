@@ -7,6 +7,7 @@ import { useForecast } from '../hooks/useForecast'
 import { qualityAt, qualityLabel, trendOf } from '../lib/quality'
 import { FlowStrip } from './FlowStrip'
 import { DischargeChart } from './DischargeChart'
+import { JournalSection } from './JournalSection'
 
 const fmtFlow = (v: number) =>
   v >= 100
@@ -191,6 +192,11 @@ export function RiverDetail({ river }: { river: River }) {
           )}
         </nav>
       )}
+
+      <JournalSection
+        river={river}
+        currentLevel={readings.length ? last?.value ?? null : null}
+      />
 
       {description && (
         <article
