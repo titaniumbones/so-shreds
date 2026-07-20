@@ -1,39 +1,76 @@
 {
- "02HB018": {
+ "02ED026": {
   "+1d": {
-   "medAPE": 6.0,
-   "medAPE_persist": 5.9,
-   "band_acc": 87.5,
-   "band_acc_persist": 87.5,
-   "n": 3646
+   "medAPE": 7.5,
+   "medAPE_persist": 7.4,
+   "band_acc": 90.7,
+   "band_acc_persist": 89.3,
+   "n": 3281
   },
   "+2d": {
-   "medAPE": 9.2,
-   "medAPE_persist": 10.4,
-   "band_acc": 84.6,
-   "band_acc_persist": 80.4,
-   "n": 3646
+   "medAPE": 12.0,
+   "medAPE_persist": 13.5,
+   "band_acc": 88.2,
+   "band_acc_persist": 84.2,
+   "n": 3281
   },
   "+3d": {
-   "medAPE": 10.8,
-   "medAPE_persist": 13.3,
-   "band_acc": 83.5,
-   "band_acc_persist": 76.6,
-   "n": 3646
+   "medAPE": 13.9,
+   "medAPE_persist": 18.0,
+   "band_acc": 88.1,
+   "band_acc_persist": 81.7,
+   "n": 3281
   },
   "+5d": {
-   "medAPE": 13.3,
-   "medAPE_persist": 16.7,
-   "band_acc": 81.7,
-   "band_acc_persist": 72.3,
-   "n": 3646
+   "medAPE": 16.6,
+   "medAPE_persist": 22.2,
+   "band_acc": 87.4,
+   "band_acc_persist": 80.7,
+   "n": 3281
   },
   "+7d": {
-   "medAPE": 15.0,
-   "medAPE_persist": 20.0,
-   "band_acc": 79.2,
-   "band_acc_persist": 69.4,
-   "n": 3646
+   "medAPE": 18.3,
+   "medAPE_persist": 26.5,
+   "band_acc": 86.8,
+   "band_acc_persist": 79.6,
+   "n": 3281
+  }
+ },
+ "02EA011": {
+  "+1d": {
+   "medAPE": 3.5,
+   "medAPE_persist": 3.5,
+   "band_acc": 96.7,
+   "band_acc_persist": 97.0,
+   "n": 3281
+  },
+  "+2d": {
+   "medAPE": 6.8,
+   "medAPE_persist": 7.0,
+   "band_acc": 94.3,
+   "band_acc_persist": 94.0,
+   "n": 3281
+  },
+  "+3d": {
+   "medAPE": 9.5,
+   "medAPE_persist": 10.5,
+   "band_acc": 92.0,
+   "band_acc_persist": 91.2,
+   "n": 3281
+  },
+  "+5d": {
+   "medAPE": 14.1,
+   "medAPE_persist": 17.0,
+   "band_acc": 87.7,
+   "band_acc_persist": 86.0,
+   "n": 3281
+  },
+  "+7d": {
+   "medAPE": 18.3,
+   "medAPE_persist": 22.8,
+   "band_acc": 84.5,
+   "band_acc_persist": 81.6,
+   "n": 3281
   }
  }
 }

@@ -16,6 +16,10 @@ This is a ground-up rewrite of the old [river-levels](https://github.com/titaniu
 
 - **Flow prediction (experimental):** river pages show a dashed 7-day forecast — a small per-basin rainfall-runoff model (snow + soil store + two linear reservoirs) calibrated offline against decades of daily flows and ERA5 weather, then re-run in the browser against the live Open-Meteo forecast and anchored to the latest gauge reading. On natural-flow rivers it clearly beats "tomorrow = today" at 3–7 day leads; on dam-controlled rivers it can't know what the operator will do, so Shand and Gull don't get forecasts. Full methodology and validation numbers in [`model/README.md`](model/README.md).
 
+- **Run journal:** every river page has a journal. *My runs* are private — stored in your browser (localStorage), with the level auto-captured from the live gauge; any entry can be shared as a self-contained link (the entry travels inside the URL, no server). *Community reports* are GitHub Discussions — one thread per river — posted with your GitHub account; the deploy workflow snapshots comments into `reports.json` and re-runs on every new comment, so reports appear on the site within minutes. The site itself never touches credentials.
+
+- **Virtual gauges:** when a physical gauge dies at the source (the Irvine's only station has been down since 2026-07-11), the calibrated model runs unanchored on observed weather and the site shows a clearly-labeled `~modelled` estimate instead of a blank.
+
 ## Development
 
 ```sh
