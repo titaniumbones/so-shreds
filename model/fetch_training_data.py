@@ -33,6 +33,8 @@ STATIONS = {
     "02KD004": (45.35, -77.85),  # Madawaska at Palmer Rapids: basin W
     "02KB001": (45.80, -78.30),  # Petawawa: Algonquin dome
     "02KF005": (46.20, -77.80),  # Ottawa at Britannia (huge basin; token point)
+    "02ED026": (43.98, -80.05),  # Nottawasaga at Hockley: basin SW toward Mono
+    "02EA011": (45.65, -79.60),  # Magnetawan nr Britt: Almaguin highlands
 }
 
 

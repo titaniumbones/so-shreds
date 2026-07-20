@@ -227,6 +227,26 @@ export const rivers: River[] = [
     hasDescription: true,
   },
   {
+    name: 'Magnetawan River',
+    section: 'Lower Mag, near Britt',
+    slug: 'magnetawan',
+    station: '02EA011',
+    stationName: 'Magnetawan River near Britt',
+    parameter: 'discharge',
+    units: 'm³/s',
+    blurb: 'Class II–III · granite pool-drop on the Shield, spring classic',
+    // bands estimated from Britt statistics (median annual max ≈ 198,
+    // median annual min ≈ 4 m³/s) pending better paddler thresholds
+    bands: [
+      { min: 0, max: 10, quality: 'low' },
+      { min: 10, max: 20, quality: 'shoulder' },
+      { min: 20, max: 150, quality: 'good' },
+      { min: 150, max: 250, quality: 'shoulder' },
+      { min: 250, max: 600, quality: 'high' },
+    ],
+    hasDescription: true,
+  },
+  {
     name: 'Lower Madawaska',
     section: 'Palmer Rapids to Griffith',
     slug: 'madawaska',
