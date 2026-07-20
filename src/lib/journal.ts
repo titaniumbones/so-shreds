@@ -82,8 +82,16 @@ export function decodeShare(blob: string): Omit<JournalEntry, 'id' | 'createdAt'
   }
 }
 
+// Share links must open for people who don't have the app: from the native
+// shell (capacitor://localhost) or a dev server, point at the public site.
+const CANONICAL_BASE = 'https://titaniumbones.github.io/so-shreds/'
+
 export function shareUrl(entry: JournalEntry): string {
-  const base = `${location.origin}${location.pathname}`
+  const onPublicWeb =
+    location.protocol.startsWith('http') &&
+    location.hostname !== 'localhost' &&
+    location.hostname !== '127.0.0.1'
+  const base = onPublicWeb ? `${location.origin}${location.pathname}` : CANONICAL_BASE
   return `${base}#/shared/${encodeShare(entry)}`
 }
 
