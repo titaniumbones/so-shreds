@@ -73,8 +73,11 @@ export async function forecastFlow(
   const histStartISO = new Date(Date.now() - 30 * 86400_000)
     .toISOString()
     .slice(0, 10)
+  // stamp each daily point at local midday (no trailing Z → parsed in the
+  // viewer's zone) so markers sit in the middle of the day on the chart
+  // instead of landing at 08:00 EDT the way 12:00 UTC did
   const toPoint = (s: { date: string; q: number }) => ({
-    t: Date.parse(`${s.date}T12:00:00Z`),
+    t: new Date(`${s.date}T12:00:00`).getTime(),
     value: s.q * ratio,
   })
   const points = sim.filter((s) => s.date >= todayISO).map(toPoint)
