@@ -149,6 +149,32 @@ export const rivers: River[] = [
     hasDescription: true,
   },
   {
+    name: 'Sixteen Mile Creek',
+    section: 'Sixteen Valley to Oakville',
+    slug: 'sixteenmile',
+    station: '02HB005',
+    stationName: 'Sixteen Mile Creek at Milton',
+    parameter: 'discharge',
+    units: 'm³/s',
+    blurb: 'Class I–III · rain-fed escarpment run through the Oakville gorges',
+    // no published thresholds — estimated from the Milton gauge record
+    // (annual max ≈ 18–20, summer low ≈ 0.25 m³/s). Rain- and melt-dependent;
+    // "at Milton" is the main-stem index, not on the run itself (see note).
+    bands: [
+      { min: 0, max: 3, quality: 'low' },
+      { min: 3, max: 6, quality: 'shoulder' },
+      { min: 6, max: 14, quality: 'good' },
+      { min: 14, max: 20, quality: 'high' },
+    ],
+    points: {
+      putin: [43.4874, -79.7476],
+      takeout: [43.4436, -79.6732],
+    },
+    hasDescription: true,
+    gaugeNote:
+      'The run (Sixteen Valley CA down through the Oakville gorges) sits below the confluence with the East branch, so on-river flow runs well above this reading — the larger East Sixteen Mile Creek gauge (02HB004, near Omagh) spikes alongside it after rain, so cross-check both. Only comes in after big rainfall or spring ice-out, and river-wide strainers are common — scout.',
+  },
+  {
     name: 'Nottawasaga River',
     section: 'Hockley Valley',
     slug: 'nottawasaga',
